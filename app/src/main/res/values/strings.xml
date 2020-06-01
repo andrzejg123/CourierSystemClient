@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">CourierSystemClient</string>
+    <string name="select_car_info">In order to continue, please select your car</string>
+    <string name="select_button">Select</string>
+    <string name="id_string">#%d</string>
+    <string name="car_name">%s%s</string>
+    <string name="package_info_desc">Package info:</string>
+    <string name="button_deliver">Select to deliver</string>
+    <string name="finish_delivery_button">Finish delivery</string>
+</resources>
