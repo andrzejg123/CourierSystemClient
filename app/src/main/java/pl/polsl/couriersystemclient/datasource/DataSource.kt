@@ -35,7 +35,7 @@ object DataSource {
             .writeTimeout(15, TimeUnit.SECONDS)
             .build()
         retrofit = Retrofit.Builder()
-            .baseUrl("http://192.168.100.41:8080/courier-system/")
+            .baseUrl("http://192.168.1.6:8080/courier-system/")
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()

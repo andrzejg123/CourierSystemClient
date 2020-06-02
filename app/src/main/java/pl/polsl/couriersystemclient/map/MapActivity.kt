@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.FragmentActivity
+import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
@@ -47,8 +48,10 @@ class MapActivity : FragmentActivity(), OnMapReadyCallback, MapActivityCallback,
                 .position(
                     LatLng(it.route.startPlace.latLng.latitude, it.route.startPlace.latLng.longitude)
                 ).title(it.name).also { it2 ->
-                    if (it.startOfDeliveryDate != null)
-                        it2.icon(BitmapDescriptorFactory.defaultMarker(270.0f))
+                    if (it.startOfDeliveryDate != null) {
+                        it2.icon(BitmapDescriptorFactory.defaultMarker(300.0f))
+                        controller.selectedPackage = it
+                    }
                 }
             )
             controller.placesWithMarkers[marker] = it

@@ -1,5 +1,6 @@
 package pl.polsl.couriersystemclient.map
 
+import android.util.Log
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.Marker
 import pl.polsl.couriersystemclient.datasource.DataSource
@@ -56,16 +57,23 @@ class MapActivityController(private val activityCallback: MapActivityCallback): 
 
     fun onMarkerClick(marker: Marker?) {
         if (marker == destinationMarker) {
+            Log.e("ifcc", "1")
             selectedPackage?.carId = selectedCar.id
             activityCallback.routeToPackageInfo()
 
         } else if(!isPackageInDelivery) {
+            Log.e("ifcc", "2")
             destinationMarker?.remove()
             selectedPackage = placesWithMarkers[marker]!!
             activityCallback.printDestinationMarker(selectedPackage!!)
 
         } else if(isPackageDelivered && placesWithMarkers[marker] == selectedPackage) {
+            Log.e("ifcc", "3")
             activityCallback.routeToPackageInfo() //now package is delivered
+        } else if(isPackageInDelivery && placesWithMarkers[marker] == selectedPackage) {
+            Log.e("ifcc", "4")
+            destinationMarker?.remove()
+            activityCallback.printDestinationMarker(selectedPackage!!)
         }
 
     }
@@ -85,7 +93,7 @@ class MapActivityController(private val activityCallback: MapActivityCallback): 
             val marker = placesWithMarkers.filterValues {
                 it == selectedPackageOld
             }.keys.first()
-
+            marker.setIcon(BitmapDescriptorFactory.defaultMarker(300.0f))
             placesWithMarkers[marker] = p //update package in map
         }
     }
