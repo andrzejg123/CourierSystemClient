@@ -1,25 +1,44 @@
 package pl.polsl.couriersystemclient.datasource
 
 import android.util.Log
-import com.google.gson.JsonObject
+import com.google.gson.GsonBuilder
+import okhttp3.Interceptor
+import okhttp3.OkHttpClient
 import pl.polsl.couriersystemclient.models.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
 
 object DataSource {
     private var retrofit: Retrofit
     private var api: CourierSystemService
 
     init {
-        retrofit = Retrofit.Builder()
-                .baseUrl("http://192.168.1.6:8080/courier-system/")
-                .addConverterFactory(GsonConverterFactory.create())
+        val interceptor = Interceptor { chain ->
+            val original = chain.request()
+            val request = original.newBuilder()
+                .method(original.method(), original.body())
                 .build()
-
-
+            Log.d("halo", "url = ${request.url().url()}")
+            chain.proceed(request)
+        }
+        val gson = GsonBuilder()
+            .setLenient()
+            .create()
+        val okHttpClient = OkHttpClient().newBuilder()
+            .addInterceptor(interceptor)
+            .connectTimeout(15, TimeUnit.SECONDS)
+            .readTimeout(15, TimeUnit.SECONDS)
+            .writeTimeout(15, TimeUnit.SECONDS)
+            .build()
+        retrofit = Retrofit.Builder()
+            .baseUrl("http://192.168.100.41:8080/courier-system/")
+            .client(okHttpClient)
+            .addConverterFactory(GsonConverterFactory.create(gson))
+            .build()
         api = retrofit.create(CourierSystemService::class.java)
     }
 
@@ -110,7 +129,7 @@ object DataSource {
             JsonBodyHelper.getJsonBody(Pair("carId", p.carId!!)))
             .enqueue(object: Callback<PackageGet> {
                 override fun onFailure(call: Call<PackageGet>, t: Throwable) {
-                    Log.e("coss", t.message!!)
+                    Log.e("coss", t.message.toString())
                 }
 
                 override fun onResponse(call: Call<PackageGet>, response: Response<PackageGet>) {
@@ -131,4 +150,29 @@ object DataSource {
 
         })
     }
+
+    fun createPackage(packagePost: PackagePost, callback: RequestReadyCallback) {
+        api.createPackage(packagePost).enqueue(object: Callback<PackageGet> {
+            override fun onFailure(call: Call<PackageGet>, t: Throwable) {
+            }
+
+            override fun onResponse(call: Call<PackageGet>, response: Response<PackageGet>) {
+                callback.onRequestReady("createPackage", response.body())
+            }
+
+        })
+    }
+
+    fun createClient(clientPost: ClientPost, callback: RequestReadyCallback) {
+        api.createClient(clientPost).enqueue(object: Callback<ClientGet> {
+            override fun onFailure(call: Call<ClientGet>, t: Throwable) {
+            }
+
+            override fun onResponse(call: Call<ClientGet>, response: Response<ClientGet>) {
+                callback.onRequestReady("createClient", response.body())
+            }
+
+        })
+    }
+
 }

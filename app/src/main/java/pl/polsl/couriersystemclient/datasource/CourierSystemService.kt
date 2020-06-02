@@ -1,16 +1,12 @@
 package pl.polsl.couriersystemclient.datasource
 
 import com.google.gson.JsonObject
-import okhttp3.RequestBody
-import org.json.JSONObject
 import pl.polsl.couriersystemclient.models.*
 import retrofit2.Call
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.PATCH
-import retrofit2.http.Path
+import retrofit2.http.*
 
 interface CourierSystemService {
+
     @GET("car")
     fun getCars(): Call<List<Car>>
 
@@ -34,4 +30,11 @@ interface CourierSystemService {
 
     @PATCH("package/deliver/{id}")
     fun deliverPackage(@Path("id") id: Long): Call<PackageGet>
+
+    @POST("package")
+    fun createPackage(@Body packagePost: PackagePost): Call<PackageGet>
+
+    @POST("client")
+    fun createClient(@Body clientPost: ClientPost): Call<ClientGet>
+
 }

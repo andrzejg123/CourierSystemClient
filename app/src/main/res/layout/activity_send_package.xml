@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/actionBarSize"
+            android:background="@color/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/clientPhoneNumberEditText"
+            app:layout_constraintTop_toTopOf="parent"
+            android:inputType="phone"
+            android:hint="Phone number"
+            android:lines="1"
+            android:maxLines="1"
+            android:layout_margin="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <View
+            android:id="@+id/line1"
+            app:layout_constraintTop_toBottomOf="@id/clientPhoneNumberEditText"
+            android:background="@color/colorAccent"
+            android:layout_margin="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/packageNameEditText"
+            app:layout_constraintTop_toBottomOf="@id/line1"
+            android:hint="Package name"
+            android:layout_margin="8dp"
+            android:inputType="text"
+            android:lines="1"
+            android:maxLines="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <androidx.appcompat.widget.AppCompatSpinner
+            android:id="@+id/routeSpinner"
+            app:layout_constraintTop_toBottomOf="@id/packageNameEditText"
+            android:layout_margin="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/sendPackagesButton"
+            app:layout_constraintTop_toBottomOf="@id/routeSpinner"
+            android:text="Send package"
+            android:onClick="onClick"
+            android:layout_margin="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <View
+            android:id="@+id/line2"
+            app:layout_constraintTop_toBottomOf="@id/sendPackagesButton"
+            android:background="@color/colorAccent"
+            android:layout_margin="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/showPackagesButton"
+            app:layout_constraintTop_toBottomOf="@id/line2"
+            android:text="Show packages"
+            android:onClick="onClick"
+            android:layout_margin="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <View
+            android:id="@+id/line3"
+            app:layout_constraintTop_toBottomOf="@id/showPackagesButton"
+            android:background="@color/colorAccent"
+            android:layout_margin="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/createNameEditText"
+            app:layout_constraintTop_toBottomOf="@id/line3"
+            android:hint="Name"
+            android:layout_margin="8dp"
+            android:inputType="text"
+            android:lines="1"
+            android:maxLines="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/createSurnameEditText"
+            app:layout_constraintTop_toBottomOf="@id/createNameEditText"
+            android:hint="Surname"
+            android:layout_margin="8dp"
+            android:inputType="text"
+            android:lines="1"
+            android:maxLines="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/createEmailEditText"
+            app:layout_constraintTop_toBottomOf="@id/createSurnameEditText"
+            android:hint="Email"
+            android:layout_margin="8dp"
+            android:inputType="text"
+            android:lines="1"
+            android:maxLines="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/createPhoneNumberEditText"
+            app:layout_constraintTop_toBottomOf="@id/createEmailEditText"
+            android:hint="PhoneNumber"
+            android:layout_margin="8dp"
+            android:inputType="phone"
+            android:lines="1"
+            android:maxLines="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/createUserButton"
+            app:layout_constraintTop_toBottomOf="@id/createPhoneNumberEditText"
+            android:text="Create account"
+            android:onClick="onClick"
+            android:layout_margin="8dp"
+            android:inputType="text"
+            android:lines="1"
+            android:maxLines="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <View
+            android:id="@+id/line4"
+            app:layout_constraintTop_toBottomOf="@id/createUserButton"
+            android:background="@color/colorAccent"
+            android:layout_margin="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
